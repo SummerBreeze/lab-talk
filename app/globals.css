@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/* 现代简约主题 - Notion/Linear 风格 */
+:root {
+  /* 深色主题（登录/注册页面） */
+  --dark-background: #1a1a2e;
+  --dark-foreground: #eee;
+  --dark-card-bg: #16213e;
+  --dark-border: #0f3460;
+  --dark-primary: #00ff41;
+  --dark-primary-dark: #00cc33;
+  --dark-secondary: #00d9ff;
+
+  /* 浅色主题（登录后界面）- 现代简约 */
+  --light-background: #fafafa;
+  --light-card-bg: #ffffff;
+  --light-border: #e5e7eb;
+  --light-border-hover: #d1d5db;
+  --light-primary: #6366f1;
+  --light-primary-hover: #4f46e5;
+  --light-secondary: #3b82f6;
+  --light-success: #10b981;
+  --light-warning: #f59e0b;
+  --light-danger: #ef4444;
+  --light-text-primary: #0f172a;
+  --light-text-secondary: #64748b;
+  --light-text-tertiary: #94a3b8;
+
+  /* 默认使用深色主题 */
+  --background: var(--dark-background);
+  --foreground: var(--dark-foreground);
+  --card-bg: var(--dark-card-bg);
+  --border: var(--dark-border);
+  --primary: var(--dark-primary);
+  --primary-dark: var(--dark-primary-dark);
+  --secondary: var(--dark-secondary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-pixel: 'Press Start 2P', monospace;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 浅色主题类 */
+.theme-light {
+  --background: var(--light-background);
+  --foreground: var(--light-text-primary);
+  --card-bg: var(--light-card-bg);
+  --border: var(--light-border);
+  --primary: var(--light-primary);
+  --primary-hover: var(--light-primary-hover);
+  --secondary: var(--light-secondary);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+.theme-light ::-webkit-scrollbar-thumb {
+  background: #e5e7eb;
+}
+
+.theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #d1d5db;
+}
+
+/* 移除旧的 pixel 风格样式 */
