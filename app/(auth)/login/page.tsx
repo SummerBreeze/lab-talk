@@ -102,15 +102,15 @@ export default function LoginPage() {
             <div className="text-xs text-[#64748b] space-y-2 bg-[#f8fafc] p-3 rounded-lg">
               <div className="flex items-center gap-2">
                 <span>👨‍🏫</span>
-                <span>Teacher: teacher@example.com</span>
+                <span>Teacher: 6666666@qq.com</span>
               </div>
               <div className="flex items-center gap-2">
                 <span>👨‍🎓</span>
-                <span>Student: student1@example.com</span>
+                <span>Student: 8888888@qq.com</span>
               </div>
               <div className="flex items-center gap-2 mt-2 pt-2 border-t border-[#e5e7eb]">
                 <span>🔑</span>
-                <span>Password: password</span>
+                <span>Password: 123456</span>
               </div>
             </div>
           </div>

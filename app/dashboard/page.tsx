@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useAuthStore } from '@/stores/authStore';
 import { useMeetingsStore } from '@/stores/meetingsStore';
 import { useReportsStore } from '@/stores/reportsStore';
+import { useTasksStore } from '@/stores/tasksStore';
 
 // 延迟加载通知列表组件
 const NotificationsList = dynamic(
@@ -24,6 +25,7 @@ export default function DashboardPage() {
   const { user } = useAuthStore();
   const { meetings, isLoading: meetingsLoading, fetchMeetings } = useMeetingsStore();
   const { reports, isLoading: reportsLoading, fetchReports } = useReportsStore();
+  const { tasks, fetchTasks } = useTasksStore();
 
   useEffect(() => {
     // 使用 requestIdleCallback 延迟非关键数据获取
@@ -31,14 +33,16 @@ export default function DashboardPage() {
       requestIdleCallback(() => {
         fetchMeetings();
         fetchReports();
+        fetchTasks();
       });
     } else {
       setTimeout(() => {
         fetchMeetings();
         fetchReports();
+        fetchTasks();
       }, 100);
     }
-  }, [fetchMeetings, fetchReports]);
+  }, [fetchMeetings, fetchReports, fetchTasks]);
 
   const upcomingMeetings = useMemo(
     () => meetings.filter((m: any) => new Date(m.scheduledAt) > new Date()).slice(0, 3),
@@ -59,6 +63,10 @@ export default function DashboardPage() {
       return reports.filter((r: any) => !r.isSubmitted && r.userId === user?.id).length;
     }
   }, [reports, user?.role, user?.id]);
+
+  const pendingTasksCount = useMemo(() => {
+    return tasks.filter((t: any) => t.status === 'pending' || t.status === 'in_progress').length;
+  }, [tasks]);
 
   return (
     <DashboardLayout>
@@ -88,18 +96,20 @@ export default function DashboardPage() {
             </Card>
           </Link>
 
-          <Link href="/reports">
+          <Link href="/tasks">
             <Card hover className="cursor-pointer">
               <CardContent className="pt-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm text-[#64748b] mb-1">Pending Reports</p>
+                    <p className="text-sm text-[#64748b] mb-1">
+                      {user?.role === 'teacher' ? 'Total Tasks' : 'Pending Tasks'}
+                    </p>
                     <p className="text-3xl font-semibold text-[#0f172a]">
-                      {pendingReportsCount}
+                      {pendingTasksCount}
                     </p>
                   </div>
                   <div className="w-12 h-12 bg-[#dbeafe] rounded-xl flex items-center justify-center text-2xl">
-                    📝
+                    ✓
                   </div>
                 </div>
               </CardContent>

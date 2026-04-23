@@ -9,6 +9,7 @@ interface TaskFormProps {
     description: string;
     assignedTo: string;
     dueDate: string;
+    priority: string;
   }) => void;
   onCancel: () => void;
 }
@@ -19,12 +20,19 @@ export function TaskForm({ groupMembers, onSubmit, onCancel }: TaskFormProps) {
     description: '',
     assignedTo: groupMembers[0]?.id || '',
     dueDate: '',
+    priority: 'medium',
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSubmit(formData);
-    setFormData({ title: '', description: '', assignedTo: groupMembers[0]?.id || '', dueDate: '' });
+    setFormData({
+      title: '',
+      description: '',
+      assignedTo: groupMembers[0]?.id || '',
+      dueDate: '',
+      priority: 'medium',
+    });
   };
 
   return (
@@ -60,6 +68,21 @@ export function TaskForm({ groupMembers, onSubmit, onCancel }: TaskFormProps) {
               {member.name}
             </option>
           ))}
+        </select>
+      </div>
+
+      <div>
+        <label className="block text-sm font-medium text-[#4a4a4a] mb-1.5">
+          优先级
+        </label>
+        <select
+          className="w-full px-4 py-2 border border-[#d8d4cc] rounded-lg bg-white text-[#4a4a4a] focus:outline-none focus:ring-2 focus:ring-[#9db4c0] focus:border-transparent"
+          value={formData.priority}
+          onChange={(e) => setFormData({ ...formData, priority: e.target.value })}
+        >
+          <option value="low">低优先级</option>
+          <option value="medium">中优先级</option>
+          <option value="high">高优先级</option>
         </select>
       </div>
 
